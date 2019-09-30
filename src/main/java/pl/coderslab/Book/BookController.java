@@ -12,7 +12,9 @@ import pl.coderslab.Publisher.Publisher;
 import pl.coderslab.Publisher.PublisherDao;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Objects;
 
 @RequestMapping("/book")
 @Controller
@@ -51,7 +53,7 @@ public class BookController {
     @ResponseBody
     public String find(@PathVariable Long id) {
         Book book = bookDao.findWithAuthors(id);
-        if (book != null) {
+        if (book != null) { //nie zadziała z findWithAuthors
             return "książka: " + book.toString();
         }
         return "nie ma takiej książki";
