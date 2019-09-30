@@ -37,5 +37,13 @@ public class BookDao extends GenericDao<Book> {
         return query.getResultList();
     }
 
+//    @Transactional
+//    public List<Book> getAllWithAuthors() {
+//        Query query = entityManager.createQuery("select b from " + Book.class + " b");
+//        List<Book> books = query.getResultList();
+//        Hibernate.initialize(books.stream().map(n -> n.getAuthors()).toArray());
+//        return books;
+//    }
+
 
 }

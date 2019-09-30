@@ -2,9 +2,8 @@ package pl.coderslab.Person;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/person")
@@ -15,6 +14,21 @@ public class PersonController {
     public PersonController(PersonDao personDao) {
         this.personDao = personDao;
     }
+
+
+    @GetMapping("")
+    public String exe1(Model model) {
+        model.addAttribute("person", new Person());
+        return "person";
+    }
+
+    @PostMapping("")
+    @ResponseBody
+    public String exe2(@ModelAttribute Person person) {
+        personDao.save(person);
+        return "dodano " + person.toString();
+    }
+
 
     @RequestMapping("/save")
     @ResponseBody
