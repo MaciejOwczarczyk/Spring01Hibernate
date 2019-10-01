@@ -4,7 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,13 +14,13 @@ public class StudentController {
     @GetMapping("/add")
     public String save(Model model) {
         model.addAttribute("student", new Student());
-        return "student";
+        return "addStudentForm";
     }
 
     @PostMapping("/add")
     public String proccess(@ModelAttribute Student student, Model model) {
         model.addAttribute("student", student);
-        return "processStudent";
+        return "showAllStudents";
     }
 
     @ModelAttribute("gender")

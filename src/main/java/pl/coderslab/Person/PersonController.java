@@ -1,6 +1,5 @@
 package pl.coderslab.Person;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +18,7 @@ public class PersonController {
     @GetMapping("")
     public String exe1(Model model) {
         model.addAttribute("person", new Person());
-        return "person";
+        return "addPerson";
     }
 
     @PostMapping("")

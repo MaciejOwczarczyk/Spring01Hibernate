@@ -31,7 +31,7 @@ public class BookController {
     @GetMapping("/add")
     public String add(Model model) {
         model.addAttribute("book", new Book());
-        return "bookForm";
+        return "addBook";
     }
 
     @PostMapping("/add")
@@ -51,7 +51,7 @@ public class BookController {
     public String editBook(@PathVariable Long id, Model model) {
         Book book = bookDao.findWithAuthors(id);
         model.addAttribute("book", book);
-        return "bookForm";
+        return "addBook";
     }
 
     @PostMapping("/edit/{id}")

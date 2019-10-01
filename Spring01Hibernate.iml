@@ -6,6 +6,10 @@
         <webroots>
           <root url="file://$MODULE_DIR$/src/main/webapp" relative="/" />
         </webroots>
+        <sourceRoots>
+          <root url="file://$MODULE_DIR$/src/main/java" />
+          <root url="file://$MODULE_DIR$/src/main/resources" />
+        </sourceRoots>
       </configuration>
     </facet>
     <facet type="Spring" name="Spring">
@@ -14,9 +18,10 @@
     <facet type="jpa" name="JPA">
       <configuration>
         <setting name="validation-enabled" value="true" />
+        <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
-          <factory-entry name="bookstorePersistenceUnit" />
-          <factory-entry name="entityManagerFactory" />
+          <factory-entry name="bookstorePersistenceUnit" value="cfad2cbc-4f12-4ec9-95e4-24ffd9976b63" />
+          <factory-entry name="entityManagerFactory" value="cfad2cbc-4f12-4ec9-95e4-24ffd9976b63" />
         </datasource-mapping>
         <naming-strategy-map />
         <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml" />

@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Repository
+@Transactional
 public class BookDao extends GenericDao<Book> {
 
     @PersistenceContext

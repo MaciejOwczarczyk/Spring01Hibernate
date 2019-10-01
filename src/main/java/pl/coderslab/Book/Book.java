@@ -23,10 +23,10 @@ public class Book {
 
     private String description;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Publisher.class, optional = false)
     private Publisher publisher;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Author.class)
     private List<Author> authors;
 
     public Book() {

@@ -19,7 +19,7 @@ public class AuthorController {
     @GetMapping("/add")
     public String add(Model model) {
         model.addAttribute("author", new Author());
-        return "authorForm";
+        return "addAuthor";
     }
 
     @PostMapping("/add")
@@ -32,7 +32,7 @@ public class AuthorController {
     public String edit(@PathVariable Long id, Model model) {
         Author author = authorDao.find(id);
         model.addAttribute("author", author);
-        return "authorForm";
+        return "addAuthor";
     }
 
     @PostMapping("/edit/{id}")

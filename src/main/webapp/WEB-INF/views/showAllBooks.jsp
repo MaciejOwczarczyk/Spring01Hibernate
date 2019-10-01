@@ -17,6 +17,11 @@
 <div class="container-fluid">
     <table class="table">
         <tr>
+            <th >
+                <a href="/book/add" class="btn btn-success">Add new book</a>
+            </th>
+        </tr>
+        <tr>
             <th>Title</th>
             <th>Rating</th>
             <th>Publisher</th>
@@ -37,6 +42,11 @@
                 </td>
             </tr>
         </c:forEach>
+        <tr>
+            <th>
+                <a href="/" class="btn btn-warning">Back</a>
+            </th>
+        </tr>
     </table>
 </div>
 </body>

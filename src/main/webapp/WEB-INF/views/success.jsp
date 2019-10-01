@@ -13,7 +13,7 @@
     <title>Title</title>
 </head>
 <body>
-${student.firstName}
+${student.fistName}
 ${student.toString()}
 </body>
 </html>
