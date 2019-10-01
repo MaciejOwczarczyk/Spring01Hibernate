@@ -26,7 +26,7 @@ public class Book {
     @ManyToOne
     private Publisher publisher;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Author> authors;
 
     public Book() {

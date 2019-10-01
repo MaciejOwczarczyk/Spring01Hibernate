@@ -17,10 +17,24 @@ public class Author {
     private String firstName;
     private String lastName;
 
+//    @ManyToMany
+//    private List<Book> books = new ArrayList<>();
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
 
     public Author() {
     }
 
+//    public List<Book> getBooks() {
+//        return books;
+//    }
+//
+//    public void setBooks(List<Book> books) {
+//        this.books = books;
+//    }
 
     public Long getId() {
         return id;
