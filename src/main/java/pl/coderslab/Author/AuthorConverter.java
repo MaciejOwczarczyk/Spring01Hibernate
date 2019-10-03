@@ -4,6 +4,8 @@ package pl.coderslab.Author;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 
+import java.util.List;
+
 public class AuthorConverter implements Converter<String, Author> {
 
     @Autowired
@@ -14,4 +16,5 @@ public class AuthorConverter implements Converter<String, Author> {
         Long id = Long.parseLong(s);
         return authorDao.find(id);
     }
+
 }

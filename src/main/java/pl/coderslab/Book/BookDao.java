@@ -38,6 +38,14 @@ public class BookDao extends GenericDao<Book> {
         return query.getResultList();
     }
 
+    @Transactional
+    public List<Author> getAuthorsForBook(Long bookId) {
+        Query query = entityManager.createQuery("select a.firstName, a.lastName from Author a, Book  c where c.id =: id");
+        query.setParameter("id", bookId);
+        return query.getResultList();
+
+    }
+
 //    @Transactional
 //    public List<Book> getAllWithAuthors() {
 //        Query query = entityManager.createQuery("select b from " + Book.class + " b");

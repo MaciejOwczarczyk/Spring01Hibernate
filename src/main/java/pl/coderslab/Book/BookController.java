@@ -10,8 +10,11 @@ import pl.coderslab.Publisher.Publisher;
 import pl.coderslab.Publisher.PublisherDao;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequestMapping("/book")
 @Controller
@@ -27,7 +30,6 @@ public class BookController {
         this.authorDao = authorDao;
     }
 
-
     @GetMapping("/add")
     public String add(Model model) {
         model.addAttribute("book", new Book());
@@ -35,21 +37,21 @@ public class BookController {
     }
 
     @PostMapping("/add")
-    public String processBook(@ModelAttribute Book book) {
+    public String processBook(@ModelAttribute Book book, Model model) {
         bookDao.save(book);
         return "redirect:showAll";
     }
 
     @GetMapping("/showAll")
     public String showAll(Model model) {
-        model.addAttribute("books", bookDao.findAll());
+        List<Book> books = bookDao.findAll();
+        model.addAttribute("books", books);
         return "showAllBooks";
     }
 
-
     @GetMapping("/edit/{id}")
     public String editBook(@PathVariable Long id, Model model) {
-        Book book = bookDao.findWithAuthors(id);
+        Book book = bookDao.find(id);
         model.addAttribute("book", book);
         return "addBook";
     }
@@ -72,8 +74,6 @@ public class BookController {
         return "redirect:../showAll";
     }
 
-
-
     @ModelAttribute("publishers")
     public List<Publisher> publishers() {
         return publisherDao.findAll();
@@ -82,6 +82,13 @@ public class BookController {
     @ModelAttribute("authors")
     public List<Author> authors() {
         return authorDao.findAll();
+    }
+
+    @GetMapping("/test")
+    @ResponseBody
+    public String test() {
+        Book book = bookDao.findWithAuthors(1L);
+;       return book.getAuthors().toString();
     }
 
 

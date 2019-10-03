@@ -26,7 +26,7 @@
             <th>Rating</th>
             <th>Publisher</th>
             <th>Description</th>
-            <%--<th>Authors</th>--%>
+            <th>Authors</th>
             <th>Action</th>
         </tr>
         <c:forEach items="${books}" var="book">
@@ -35,7 +35,11 @@
                 <td>${book.rating}</td>
                 <td>${book.publisher.name}</td>
                 <td>${book.description}</td>
-                <%--<td>${book.authors}</td>--%>
+                <td>
+                    <c:forEach items="${book.authors}" var="author">
+                        ${author.fullName}</br>
+                    </c:forEach>
+                </td>
                 <td>
                     <a href="edit/${book.id}" class="btn btn-primary">Edit</a>
                     <a href="confirmDelete/${book.id}" class="btn btn-danger">Delete</a>
