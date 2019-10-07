@@ -35,15 +35,16 @@ public class BookController {
     }
 
     @PostMapping("/add")
-    public String processBook(@ModelAttribute @Validated({BookValidationGroup.class}) Book book, BindingResult result, Model model) {
+    public String processBook(@ModelAttribute @Validated({BookValidationGroup.class}) Book book, BindingResult result) {
         if (book.isProposition()) {
             return "forward:/proposition/add";
-        } else if (result.hasErrors()) {
-            return "addBook";
-        } else {
-            bookDao.save(book);
-            return "redirect:showAll";
         }
+        if (result.hasErrors()) {
+            return "addBook";
+        }
+
+        bookDao.save(book);
+        return "redirect:showAll";
     }
 
     @GetMapping("/showAll")
@@ -56,19 +57,18 @@ public class BookController {
     @GetMapping("/edit/{id}")
     public String editBook(@PathVariable Long id, Model model) {
         Book book = bookDao.findWithAuthors(id);
-        if (book.isProposition()) {
-            return "forward:/proposition/edit/" + id;
-        }
         model.addAttribute("book", book);
         return "addBook";
     }
 
     @PostMapping("/edit/{id}")
     public String editBookProcess(@PathVariable Long id, @ModelAttribute @Validated({BookValidationGroup.class}) Book book, BindingResult result, Model model) {
-       if (result.hasErrors()) {
+        if (book.isProposition()) {
+            return "forward:/proposition/edit/" + id;
+        }
+        if (result.hasErrors()) {
             return "addBook";
         }
-
        bookDao.update(book);
        return "redirect:../showAll";
     }

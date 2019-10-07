@@ -29,9 +29,6 @@
         <form:errors path="description"/>
 
         <br/>
-</div>
-<br>
-<div class="container-fluid">
 
         <label>Rating</label>
         <form:input path="rating" type="number" class="form-control" id="ratingId"/>
@@ -52,7 +49,8 @@
         <br/>
 
         <label>Pages: </label>
-        <form:input path="pages" class="forn-control" id="pagesId"/>
+        <form:input path="pages" class="form-control" id="pagesId"/>
+        <form:errors path="pages" cssClass="error">Musisz podać ilość stron</form:errors>
 
         <br/>
 

@@ -33,18 +33,18 @@ public class PropositionController {
         return "showAllBooks";
     }
 
-    @GetMapping("/add")
-    public String add(Model model) {
-        model.addAttribute("book", new Book());
-        return "addBook";
-    }
+//    @GetMapping("/add")
+//    public String add(Model model) {
+//        model.addAttribute("book", new Book());
+//        return "addBook";
+//    }
 
     @PostMapping("/add")
     public String add(@ModelAttribute @Validated({PropositionValidationGroup.class}) Book book, BindingResult result) {
         if (result.hasErrors()) {
             return "addBook";
         }
-        book.setProposition(true);
+        book.setPublisher(null);
         bookDao.save(book);
         return "redirect:showAll";
     }
@@ -61,18 +61,19 @@ public class PropositionController {
         return "redirect:../showAll";
     }
 
-    @GetMapping("/edit/{id}")
-    public String editBook(@PathVariable Long id, Model model) {
-        Book book = bookDao.find(id);
-        model.addAttribute("book", book);
-        return "addBook";
-    }
+//    @GetMapping("/edit/{id}")
+//    public String editBook(@PathVariable Long id, Model model) {
+//        Book book = bookDao.findWithAuthors(id);
+//        model.addAttribute("book", book);
+//        return "addBook";
+//    }
 
     @PostMapping("/edit/{id}")
     public String editBook(@PathVariable Long id, @ModelAttribute @Validated({PropositionValidationGroup.class}) Book book, BindingResult result) {
         if (result.hasErrors()) {
             return "addBook";
         }
+        book.setPublisher(null);
         bookDao.update(book);
         return "redirect:../showAll";
     }

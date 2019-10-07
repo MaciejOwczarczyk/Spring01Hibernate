@@ -46,8 +46,6 @@ public class Book {
     public Book() {
     }
 
-
-
     public boolean isProposition() {
         return proposition;
     }
