@@ -3,18 +3,16 @@ package pl.coderslab.Book;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.Author.Author;
 import pl.coderslab.Author.AuthorDao;
 import pl.coderslab.Publisher.Publisher;
 import pl.coderslab.Publisher.PublisherDao;
-
+import javax.validation.Validator;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @RequestMapping("/book")
 @Controller
@@ -24,7 +22,7 @@ public class BookController {
     private final PublisherDao publisherDao;
     private final AuthorDao authorDao;
 
-    public BookController(BookDao bookDao, PublisherDao publisherDao, AuthorDao authorDao) {
+    public BookController(BookDao bookDao, PublisherDao publisherDao, AuthorDao authorDao, Validator validator) {
         this.bookDao = bookDao;
         this.publisherDao = publisherDao;
         this.authorDao = authorDao;
@@ -37,9 +35,15 @@ public class BookController {
     }
 
     @PostMapping("/add")
-    public String processBook(@ModelAttribute Book book, Model model) {
-        bookDao.save(book);
-        return "redirect:showAll";
+    public String processBook(@ModelAttribute @Validated({BookValidationGroup.class}) Book book, BindingResult result, Model model) {
+        if (book.isProposition()) {
+            return "forward:/proposition/add";
+        } else if (result.hasErrors()) {
+            return "addBook";
+        } else {
+            bookDao.save(book);
+            return "redirect:showAll";
+        }
     }
 
     @GetMapping("/showAll")
@@ -51,15 +55,22 @@ public class BookController {
 
     @GetMapping("/edit/{id}")
     public String editBook(@PathVariable Long id, Model model) {
-        Book book = bookDao.find(id);
+        Book book = bookDao.findWithAuthors(id);
+        if (book.isProposition()) {
+            return "forward:/proposition/edit/" + id;
+        }
         model.addAttribute("book", book);
         return "addBook";
     }
 
     @PostMapping("/edit/{id}")
-    public String editBookProcess(@ModelAttribute Book book) {
-        bookDao.update(book);
-        return "redirect:../showAll";
+    public String editBookProcess(@PathVariable Long id, @ModelAttribute @Validated({BookValidationGroup.class}) Book book, BindingResult result, Model model) {
+       if (result.hasErrors()) {
+            return "addBook";
+        }
+
+       bookDao.update(book);
+       return "redirect:../showAll";
     }
 
     @GetMapping("/confirmDelete/{id}")
@@ -84,12 +95,6 @@ public class BookController {
         return authorDao.findAll();
     }
 
-    @GetMapping("/test")
-    @ResponseBody
-    public String test() {
-        Book book = bookDao.findWithAuthors(1L);
-;       return book.getAuthors().toString();
-    }
 
 
 

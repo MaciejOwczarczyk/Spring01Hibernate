@@ -3,16 +3,24 @@ package pl.coderslab.Publisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.coderslab.Book.Book;
+import pl.coderslab.Book.BookDao;
+
+import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/publisher")
 public class PublisherController {
 
     private final PublisherDao publisherDao;
+    private final BookDao bookDao;
 
-    public PublisherController(PublisherDao publisherDao) {
+    public PublisherController(PublisherDao publisherDao, BookDao bookDao) {
         this.publisherDao = publisherDao;
+        this.bookDao = bookDao;
     }
 
 
@@ -29,7 +37,10 @@ public class PublisherController {
     }
 
     @PostMapping("/add")
-    public String addProcess(@ModelAttribute Publisher publisher) {
+    public String addProcess(@ModelAttribute @Valid Publisher publisher, BindingResult result) {
+        if (result.hasErrors()) {
+            return "addPublisher";
+        }
         publisherDao.save(publisher);
         return "redirect:showAll";
     }
@@ -43,7 +54,10 @@ public class PublisherController {
     }
 
     @PostMapping("/edit/{id}")
-    public String editProcess(@ModelAttribute Publisher publisher, @PathVariable Long id) {
+    public String editProcess(@PathVariable Long id, @ModelAttribute @Valid Publisher publisher,BindingResult result) {
+        if (result.hasErrors()) {
+            return "addPublisher";
+        }
         publisherDao.update(publisher);
         return "redirect:../showAll";
     }
@@ -56,16 +70,16 @@ public class PublisherController {
 
     @GetMapping("/delete/{id}")
     public String confirmDelete(@PathVariable Long id) {
+        List<Book> books = bookDao.findAll();
+        boolean check = books.stream().
+                map(Book::getPublisher).
+                anyMatch(o -> o.getId().equals(publisherDao.find(id).getId()));
+        if (check) {
+            return "deletePublisherWarning";
+        }
         publisherDao.delete(id);
         return "redirect:../showAll";
     }
-
-
-
-
-
-
-
 
     @RequestMapping("/save")
     @ResponseBody

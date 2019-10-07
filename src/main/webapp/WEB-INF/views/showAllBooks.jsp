@@ -24,8 +24,9 @@
         <tr>
             <th>Title</th>
             <th>Rating</th>
-            <th>Publisher</th>
             <th>Description</th>
+            <th>Propostion</th>
+            <th>Publisher</th>
             <th>Authors</th>
             <th>Action</th>
         </tr>
@@ -33,8 +34,9 @@
             <tr>
                 <td>${book.title}</td>
                 <td>${book.rating}</td>
-                <td>${book.publisher.name}</td>
                 <td>${book.description}</td>
+                <td>${book.proposition}</td>
+                <td>${book.publisher.name}</td>
                 <td>
                     <c:forEach items="${book.authors}" var="author">
                         ${author.fullName}</br>

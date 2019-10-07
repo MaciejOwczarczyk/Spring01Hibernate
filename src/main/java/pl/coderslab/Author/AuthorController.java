@@ -3,16 +3,25 @@ package pl.coderslab.Author;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import pl.coderslab.Book.Book;
+import pl.coderslab.Book.BookDao;
+
+import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/author")
 public class AuthorController {
 
     private final AuthorDao authorDao;
+    private final BookDao bookDao;
 
-    public AuthorController(AuthorDao authorDao) {
+    public AuthorController(AuthorDao authorDao, BookDao bookDao) {
         this.authorDao = authorDao;
+        this.bookDao = bookDao;
     }
 
 
@@ -23,7 +32,10 @@ public class AuthorController {
     }
 
     @PostMapping("/add")
-    public String processAuthor(@ModelAttribute Author author) {
+    public String processAuthor(@ModelAttribute @Valid Author author, BindingResult result) {
+        if (result.hasErrors()) {
+            return "addAuthor";
+        }
         authorDao.save(author);
         return "redirect:showAll";
     }
@@ -36,7 +48,10 @@ public class AuthorController {
     }
 
     @PostMapping("/edit/{id}")
-    public String editProcess(@ModelAttribute Author author) {
+    public String editProcess(@ModelAttribute @Valid Author author, BindingResult result) {
+        if (result.hasErrors()) {
+            return "addAuthor";
+        }
         authorDao.update(author);
         return "redirect:../showAll";
     }
@@ -56,20 +71,19 @@ public class AuthorController {
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
+        List<Book> books = bookDao.findAll();
+        for (Book book: books) {
+            List<Author> authorList = book.getAuthors();
+            boolean check = authorList.stream().
+                    map(Author::getId).
+                    anyMatch(o -> o.equals(authorDao.find(id).getId()));
+            if (check) {
+                return "deleteAuthorWarning";
+            }
+        }
         authorDao.delete(id);
         return "redirect:../showAll";
     }
-
-
-
-
-
-
-
-
-
-
-
 
     @RequestMapping("/save")
     @ResponseBody

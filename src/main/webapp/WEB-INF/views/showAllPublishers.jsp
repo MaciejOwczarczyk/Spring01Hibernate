@@ -26,12 +26,16 @@
             </tr>
             <tr>
                 <th>Name</th>
+                <th>Nip</th>
+                <th>REGON</th>
                 <th>Action</th>
             </tr>
 
             <c:forEach items="${pusblishers}" var="publisher">
                 <tr>
                 <td class="title">${publisher.name}</td>
+                <td>${publisher.nip}</td>
+                <td>${publisher.regon}</td>
                 <td>
                     <a href="edit/${publisher.id}" class="btn btn-primary">Edit</a>
                     <a href="confirmDelete/${publisher.id}" class="btn btn-danger">Delete</a>

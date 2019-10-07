@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="label" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <title>Title</title>
@@ -21,11 +22,29 @@
 
         <label>First Name:</label>
         <form:input path="firstName" class="form-control" type="text" id="firstNameId"/>
+        <form:errors cssClass="error" path="firstName">Pole nie może być puste</form:errors>
 
         <br/>
 
         <label>Last Name: </label>
         <form:input path="lastName" class="form-control" type="text" id="lastNameId"/>
+        <form:errors cssClass="error" path="lastName">Pole nie może być puste</form:errors>
+
+        <br/>
+
+        <label>Year of Birth: </label>
+        <form:input path="yearOfBirth" class="form-control" id="yearOfbithId"/>
+        <form:errors path="yearOfBirth"/>
+
+        <label>PESEL: </label>
+        <form:input path="pesel" class="form-control" id="peselId"/>
+        <form:errors path="pesel" cssClass="error">To nie jest PESEL</form:errors>
+
+        <br/>
+
+        <label>Email</label>
+        <label:input path="email" class="form-control" id="emailId"/>
+        <form:errors path="email"/>
 
         <br/>
 

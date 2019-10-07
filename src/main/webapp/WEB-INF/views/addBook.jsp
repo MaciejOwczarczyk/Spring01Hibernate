@@ -14,28 +14,45 @@
 <div class="container-fluid">
     <form:form method="post" modelAttribute="book">
 
-        <label>Title:</label>
-        <form:input class="form-control" path="title" type="text" id="titleId"/>
-
+        <label>Proposition</label>
+        <form:checkbox path="proposition" id="propositionId"/>
         <br/>
 
-        <label>Rating</label>
-        <form:input path="rating" type="number" class="form-control" id="ratingId"/>
+        <label>Title:</label>
+        <form:input class="form-control" path="title" type="text" id="titleId"/>
+        <form:errors path="title" cssClass="error">Tytuł musi zawierać przynajmniej 5 znaków</form:errors>
 
         <br/>
 
         <label>Description</label>
         <form:textarea path="description" class="form-control" id="descriptionId"/>
+        <form:errors path="description"/>
+
+        <br/>
+</div>
+<br>
+<div class="container-fluid">
+
+        <label>Rating</label>
+        <form:input path="rating" type="number" class="form-control" id="ratingId"/>
+        <form:errors path="rating" cssClass="error">Musi być pomiędzy 1 a 10</form:errors>
 
         <br/>
 
         <label for="publisherId">Publisher:</label>
         <form:select path="publisher.id" items="${publishers}" itemLabel="name" itemValue="id" id="publisherId" class="form-control"/>
+        <form:errors path="publisher"/>
 
         <br/>
 
         <label for="authorsId">Author:</label>
         <form:select path="authors" items="${authors}" itemLabel="fullName" itemValue="id" id="authorsId" class="form-control"/>
+        <form:errors path="authors"/>
+
+        <br/>
+
+        <label>Pages: </label>
+        <form:input path="pages" class="forn-control" id="pagesId"/>
 
         <br/>
 
@@ -43,6 +60,5 @@
 
     </form:form>
 </div>
-
 </body>
 </html>

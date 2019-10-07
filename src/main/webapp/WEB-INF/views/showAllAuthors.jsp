@@ -26,16 +26,23 @@
         <tr>
             <th>First Name</th>
             <th>Last Name</th>
+            <th>Date of birth</th>
+            <th>PESEL</th>
+            <th>Email</th>
             <th>Action</th>
         </tr>
         <c:forEach items="${authors}" var="author">
             <tr>
                 <td>${author.firstName}</td>
                 <td>${author.lastName}</td>
+                <td>${author.yearOfBirth}</td>
+                <td>${author.pesel}</td>
+                <td>${author.email}</td>
                 <td>
                     <a href="edit/${author.id}" class="btn btn-primary">Edit</a>
                     <a href="confirmDelete/${author.id}" class="btn btn-danger">Delete</a>
                 </td>
+
             </tr>
         </c:forEach>
         <tr>

@@ -15,6 +15,17 @@
 
         <label>Name: </label>
         <form:input path="name" type="text" class="form-control" id="nameId"/>
+        <form:errors path="name" cssClass="error"/>
+        <br/>
+
+        <label>REGON: </label>
+        <form:input path="regon" type="regon" class="form-control" id="regonId"/>
+        <form:errors path="regon" cssClass="error"/>
+        <br/>
+
+        <label>NIP: </label>
+        <form:input path="nip" type="nip" class="form-control" id="nipId"/>
+        <form:errors path="nip" cssClass="error"/>
         <br/>
 
         <input type="submit" class="btn btn-primary" value="Save">
