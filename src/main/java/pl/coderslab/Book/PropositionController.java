@@ -30,17 +30,22 @@ public class PropositionController {
     public String showAll(Model model) {
         List<Book> books = bookDao.findPropositions();
         model.addAttribute("books", books);
-        return "showAllBooks";
+        return "showAllPropostionBooks";
     }
 
-//    @GetMapping("/add")
-//    public String add(Model model) {
-//        model.addAttribute("book", new Book());
-//        return "addBook";
-//    }
+    @GetMapping("/add")
+    public String add(Model model) {
+        Book book = new Book();
+        book.setProposition(true);
+        model.addAttribute("book", book);
+        return "addBook";
+    }
 
     @PostMapping("/add")
     public String add(@ModelAttribute @Validated({PropositionValidationGroup.class}) Book book, BindingResult result) {
+        if (!book.isProposition()) {
+            return "forward:/book/add";
+        }
         if (result.hasErrors()) {
             return "addBook";
         }
@@ -52,7 +57,7 @@ public class PropositionController {
     @GetMapping("/confirmDelete/{id}")
     public String confirmDelete(@PathVariable Long id, Model model) {
         model.addAttribute("bookId", id);
-        return "confirmDeleteBook";
+        return "confirmDeleteProposition";
     }
 
     @GetMapping("/delete/{id}")
@@ -61,15 +66,18 @@ public class PropositionController {
         return "redirect:../showAll";
     }
 
-//    @GetMapping("/edit/{id}")
-//    public String editBook(@PathVariable Long id, Model model) {
-//        Book book = bookDao.findWithAuthors(id);
-//        model.addAttribute("book", book);
-//        return "addBook";
-//    }
+    @GetMapping("/edit/{id}")
+    public String editBook(@PathVariable Long id, Model model) {
+        Book book = bookDao.findWithAuthors(id);
+        model.addAttribute("book", book);
+        return "addBook";
+    }
 
     @PostMapping("/edit/{id}")
     public String editBook(@PathVariable Long id, @ModelAttribute @Validated({PropositionValidationGroup.class}) Book book, BindingResult result) {
+        if (!book.isProposition()) {
+            return "forward:/book/edit/" + id;
+        }
         if (result.hasErrors()) {
             return "addBook";
         }
@@ -78,13 +86,13 @@ public class PropositionController {
         return "redirect:../showAll";
     }
 
-//    @ModelAttribute("publishers")
-//    public List<Publisher> publishers() {
-//        return publisherDao.findAll();
-//    }
-//
-//    @ModelAttribute("authors")
-//    public List<Author> authors() {
-//        return authorDao.findAll();
-//    }
+    @ModelAttribute("publishers")
+    public List<Publisher> publishers() {
+        return publisherDao.findAll();
+    }
+
+    @ModelAttribute("authors")
+    public List<Author> authors() {
+        return authorDao.findAll();
+    }
 }

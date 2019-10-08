@@ -18,40 +18,26 @@
     <table class="table">
         <tr>
             <th >
-                <a href="/book/add" class="btn btn-success">Add new book</a>
-            </th>
-            <th>
-                <a href="/proposition/showAll" class="btn btn-primary">Show all propositions</a>
+                <a href="/proposition/add" class="btn btn-success">Add new book/proposition</a>
             </th>
         </tr>
         <tr>
             <th>Title</th>
-            <th>Rating</th>
             <th>Description</th>
-            <th>Publisher</th>
-            <th>Authors</th>
-            <th>Action</th>
         </tr>
         <c:forEach items="${books}" var="book">
             <tr>
                 <td>${book.title}</td>
-                <td>${book.rating}</td>
                 <td>${book.description}</td>
-                <td>${book.publisher.name}</td>
                 <td>
-                    <c:forEach items="${book.authors}" var="author">
-                        ${author.fullName}</br>
-                    </c:forEach>
-                </td>
-                <td>
-                    <a href="edit/${book.id}" class="btn btn-primary">Edit</a>
-                    <a href="confirmDelete/${book.id}" class="btn btn-danger">Delete</a>
+                    <a href="/proposition/edit/${book.id}" class="btn btn-primary">Edit</a>
+                    <a href="/proposition/confirmDelete/${book.id}" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         </c:forEach>
         <tr>
             <th>
-                <a href="/" class="btn btn-warning">Back</a>
+                <a href="/book/showAll" class="btn btn-warning">Back</a>
             </th>
         </tr>
     </table>

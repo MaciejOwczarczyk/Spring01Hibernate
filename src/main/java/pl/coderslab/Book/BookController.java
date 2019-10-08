@@ -49,7 +49,7 @@ public class BookController {
 
     @GetMapping("/showAll")
     public String showAll(Model model) {
-        List<Book> books = bookDao.findAll();
+        List<Book> books = bookDao.findAllNoneProposition();
         model.addAttribute("books", books);
         return "showAllBooks";
     }

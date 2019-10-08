@@ -53,6 +53,13 @@ public class BookDao extends GenericDao<Book> {
         return books;
     }
 
+    @Transactional
+    public List<Book> findAllNoneProposition() {
+        Query query = entityManager.createQuery("select b from Book b where b.proposition = false");
+        List<Book> books = query.getResultList();
+        return books;
+    }
+
 //    @Transactional
 //    public List<Book> getAllWithAuthors() {
 //        Query query = entityManager.createQuery("select b from " + Book.class + " b");
