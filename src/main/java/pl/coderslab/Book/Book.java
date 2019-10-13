@@ -43,6 +43,9 @@ public class Book {
 
     private boolean proposition;
 
+    @ManyToOne
+    private Category category;
+
     public Book() {
     }
 

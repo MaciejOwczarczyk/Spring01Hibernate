@@ -1,6 +1,5 @@
 package pl.coderslab.Publisher;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,10 +16,12 @@ public class PublisherController {
 
     private final PublisherDao publisherDao;
     private final BookDao bookDao;
+    private final PublisherRepository publisherRepository;
 
-    public PublisherController(PublisherDao publisherDao, BookDao bookDao) {
+    public PublisherController(PublisherDao publisherDao, BookDao bookDao, PublisherRepository publisherRepository) {
         this.publisherDao = publisherDao;
         this.bookDao = bookDao;
+        this.publisherRepository = publisherRepository;
     }
 
 

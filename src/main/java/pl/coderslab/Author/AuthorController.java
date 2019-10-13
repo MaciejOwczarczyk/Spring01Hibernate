@@ -10,7 +10,6 @@ import pl.coderslab.Book.BookDao;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/author")
@@ -18,10 +17,12 @@ public class AuthorController {
 
     private final AuthorDao authorDao;
     private final BookDao bookDao;
+    private final AuthorRepository authorRepository;
 
-    public AuthorController(AuthorDao authorDao, BookDao bookDao) {
+    public AuthorController(AuthorDao authorDao, BookDao bookDao, AuthorRepository authorRepository) {
         this.authorDao = authorDao;
         this.bookDao = bookDao;
+        this.authorRepository = authorRepository;
     }
 
 
